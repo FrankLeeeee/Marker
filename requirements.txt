@@ -3,3 +3,5 @@ torch
 easyocr
 openpyxl
 selenium
+webdriver_manager
+click
