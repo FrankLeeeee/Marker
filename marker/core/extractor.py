@@ -1,5 +1,6 @@
-import easyocr
 from pathlib import Path
+
+import easyocr
 import pandas as pd
 
 
@@ -39,7 +40,7 @@ class Extractor:
                     extracted_text.append(result[1])
             print(f'Finished OCR for {img_path}')
 
-        scores = [8] * len(extracted_text)
+        scores = [default_score] * len(extracted_text)
         data = dict(name=extracted_text, source=img_source, score=scores)
         df = pd.DataFrame(data=data)
         df.to_excel('list.xlsx', index=False)
@@ -51,6 +52,7 @@ if __name__ == '__main__':
         coordinates = result[0]
         max_y = 0
         min_y = float('inf')
+        min_x = float('inf')
 
         for coordinate in coordinates:
             if coordinate[1] > max_y:
@@ -58,7 +60,19 @@ if __name__ == '__main__':
 
             if coordinate[1] < min_y:
                 min_y = coordinate[1]
-        if max_y - min_y < 50 or result[2] < 0.7:
+            
+            if coordinate[0] < min_x:
+                min_x = coordinate[0]
+
+        text = result[1]
+
+        KEYWORDS = ['我的评分', '分钟', '上映日期', '动作', '观影时间']
+
+        for keyword in KEYWORDS:
+            if keyword in text:
+                return (None, None, None)
+        
+        if max_y - min_y < 60 or min_x < 280 or min_x > 295:
             result = (None, None, None)
         return result
 

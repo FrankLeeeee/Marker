@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# test image
+samples/
+
+# MacOS cache
+.DS_Store
+
+# extracted movie name
+list.xlsx
