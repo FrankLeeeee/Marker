@@ -14,6 +14,9 @@ As a result, a `list.csv` file will be produced with all the extracted media nam
 mark -e <image-folder>
 ```
 
+> Some manual editing may be required for the extracted movie names as OCR is not 100% accurate.
+> The generated file will assign a default score the movie, default is 8.
+
 ### Mark on Douban
 
 You can either prepare the `list.csv` with the command given above or create on your own manually.
